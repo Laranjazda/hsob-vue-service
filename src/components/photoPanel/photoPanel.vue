@@ -1,21 +1,30 @@
 
-<template>  
-        <div class="painel">
-          <h2 class="painel-titulo">{{ title }}</h2>
-          <slot class="painel-corpo"></slot>
-        </div>
+<template>
+  <div class="painel">
+    <h2 class="painel-titulo" v-on:dblclick="visible = !visible">
+      {{ title }}
+    </h2>
+    <transition name="panel-fade">
+      <div class="painel-corpo" v-show="visible">
+        <slot></slot>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "photoPanel",
-    props:['title']
-}
-  
+  name: "photoPanel",
+  props: ["title"],
+  data() {
+    return {
+      visible: true,
+    };
+  },
+};
 </script>
 
 <style scoped>
-
 .painel {
   padding: 0 auto;
   border: solid 2px grey;
@@ -35,5 +44,13 @@ export default {
   margin: 0 0 15px 0;
   padding: 10px;
   text-transform: uppercase;
+}
+
+.panel-fade-enter, .panel-fade-leave-active{
+  opacity: 0;
+}
+
+.panel-fade-enter-active, .panel-fade-leave-active{
+  transition: opacity .3s;
 }
 </style>

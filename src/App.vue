@@ -11,11 +11,7 @@
     <ul class="lista-fotos">
       <li class="lista-fotos-item" v-for="foto in photosFilter" :key="foto">
         <photoPanel :title="foto.description">
-            <img
-              class="imagem-responsiva"
-              :src="foto.url"
-              :alt="foto.description"
-            />
+          <responsive-image :url="foto.url" :description="foto.description" />
         </photoPanel>
       </li>
     </ul>
@@ -25,9 +21,12 @@
 <script>
 import axios from "axios";
 import photoPanel from "./components/photoPanel/photoPanel.vue"
+import ResponsiveImage from "./components/images/ResponsiveImage.vue"
+
 export default {
   components:{
-    photoPanel
+    photoPanel,
+    ResponsiveImage
   },
   computed:{
     photosFilter(){
