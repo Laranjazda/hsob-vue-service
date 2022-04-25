@@ -8,6 +8,12 @@
       <li class="lista-fotos-item" v-for="foto in photosFilter" :key="foto">
         <PhotoPanel :title="foto.description">
           <ResponsiveImage :url="foto.url" :description="foto.description" />
+          <ButtonDefault 
+          type="button" 
+          label="REMOVER" 
+          @buttonActivated="remove(foto)" 
+          :confirmation="false"
+          style="default"/>
         </PhotoPanel>
       </li>
     </ul>
@@ -19,12 +25,14 @@ import axios from "axios";
 import PhotoPanel from "./PhotoPanel.vue"
 import ResponsiveImage from "../images/ResponsiveImage.vue"
 import SearchInput from "../forms/SearchInput.vue"
+import ButtonDefault from "../button/ButtonDefault.vue"
 
 export default {
   components:{
     PhotoPanel,
     ResponsiveImage,
-    SearchInput
+    SearchInput,
+    ButtonDefault
   },
   computed:{
     photosFilter(){
@@ -34,7 +42,8 @@ export default {
       } else {
         return this.fotos
       }
-    }
+    },
+  
   },
   data() {
     return {
@@ -57,8 +66,12 @@ export default {
           console.log(error);
         });
     },
-  },
-};
+
+    remove(foto) {
+      alert("Remover foto " + foto.description + " ?")
+    }
+  }
+}
 </script>
 
 <style scoped>
